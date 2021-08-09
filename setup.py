@@ -16,7 +16,7 @@ setuptools.setup(
     license='MIT',
     description='Package for balanced investing',
     # You will also need a readme eventually (there will be a warning)
-    # long_description=open('README.txt').read()
+    long_description=open('README.txt').read(),
     # Other
     zip_safe=False
 )
