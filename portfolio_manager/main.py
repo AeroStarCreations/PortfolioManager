@@ -5,6 +5,7 @@ import fidelity_csv_parser
 from objects.account import Account
 from objects.portfolio import Portfolio
 from constants import ACCOUNTS, TASKS, format_cents
+from objects.account_details import AccountDetails
 
 # Colors
 blues = [u"\u001b[38;5;32m", u"\u001b[38;5;39m"]
@@ -179,8 +180,13 @@ def getAdditionalCash(account_details_list):
             additionalCash.append(0)
     return additionalCash
 
+def investBalancedBinance(account_balances):
+    print('Investing in Binance.US account')
+    # account_details_list = [AccountDetails('binance', 'Binance.US')]
+    # assets = binance_parser
+
 # -------------------------------------------------------------------------
-# The beginning. Does 3 things:
+# The beginning. Does 5 things:
 #      1. Asks user which accounts to manage
 #      2. Asks user to provide Fidelity CSV file
 #      3. Asks user what task to run on each account
