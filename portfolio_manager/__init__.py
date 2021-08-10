@@ -1,4 +1,5 @@
 from main import investBalancedBinance
+import objects
 
 def bob():
     print('Hello, World!')
