@@ -1,11 +1,12 @@
 import re
+import os
 import sys
 import getopt
 import fidelity_csv_parser
-from objects.account import Account
-from objects.portfolio import Portfolio
+from portfolio_manager.objects.account import Account
+from portfolio_manager.objects.portfolio import Portfolio
 from constants import ACCOUNTS, TASKS, format_cents
-from objects.account_details import AccountDetails
+from portfolio_manager.objects.account_details import AccountDetails
 
 # Colors
 blues = [u"\u001b[38;5;32m", u"\u001b[38;5;39m"]
@@ -97,7 +98,11 @@ def stripQuotations(val):
 def getFileFromUser():
     try:
         # return open('/Users/nathanballi/Downloads/Portfolio_Position_Aug-01-2021.csv')
-        db_file_path = 'text_files/csv_name.txt'
+        dir_path = 'src/text_files'
+        db_file_path = os.path.join(dir_path, 'csv_name.txt')
+        if not os.path.exists(dir_path):
+            os.makedirs(dir_path)
+            
         csv_file_path = input(f'\n{blues[1]}Enter the Fidelity CSV file path ("f" to use last-used file): {greens[1]}${default}')
         if csv_file_path == 'f':
             with open(db_file_path, 'r') as db_file:

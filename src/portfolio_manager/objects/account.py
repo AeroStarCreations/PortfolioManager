@@ -1,6 +1,6 @@
-from objects.category import Category
-from objects.balanceable import Balanceable
-from objects.asset import Asset
+from portfolio_manager.objects.category import Category
+from portfolio_manager.objects.balanceable import Balanceable
+from portfolio_manager.objects.asset import Asset
 import constants
 from constants import format_cents
 import balancer

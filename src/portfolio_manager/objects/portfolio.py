@@ -1,5 +1,5 @@
 from constants import ACCOUNTS
-from objects.account import Account
+from portfolio_manager.objects.account import Account
 
 class Portfolio():
     accounts = {}

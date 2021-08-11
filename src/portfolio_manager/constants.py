@@ -1,4 +1,4 @@
-from objects.account_details import AccountDetails
+from portfolio_manager.objects.account_details import AccountDetails
 
 ACCOUNTS = {
     '1': AccountDetails('Z04711651', 'Index Fund'),
