@@ -5,6 +5,7 @@ csv_name.txt
 # GITHUB PYTHON TEMPLATE
 # Byte-compiled / optimized / DLL files
 __pycache__/
+*__pycache__/*
 *.py[cod]
 *$py.class
 
