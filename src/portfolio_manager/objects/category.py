@@ -4,9 +4,8 @@ import balancer
 
 class Category(BaseInvestment, Balanceable):
 
-    def __init__(self, id, name, assets):
+    def __init__(self, name, assets):
         super().__init__()
-        self.id = id
         self.name = name
         self.assets = assets
         self.target_percentage = self.__get_target_percentage(assets)

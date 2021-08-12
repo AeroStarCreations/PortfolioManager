@@ -6,7 +6,7 @@ from constants import format_cents
 import balancer
 
 class Account(Balanceable):
-    __CASH = 'FCASH'
+    __CASH = ['FCASH', 'USD']
 
     def __init__(self, parsed_assets, account_details):
         self.__categories = []
@@ -14,36 +14,26 @@ class Account(Balanceable):
         self.__target_balance = 0
         self.__cash_balance = 0
 
-        # Get asset allocation targets for this account
-        allocations = {}
-        if account_details.name == 'Index Fund':
-            allocations = constants.INDEX_FUND_ALLOCATIONS
-        elif account_details.name == 'ETF':
-            allocations = constants.ETF_ALLOCATIONS
-        elif account_details.name == 'Junkyard':
-            allocations = constants.JUNKYARD_ALLOCATIONS
-
         # Get category info for this account
-        for _id, info in allocations.items():
+        for allocation_category in account_details.asset_allocation.get_categories():
             category_assets = []
-            for symbol, percentage in info['assets'].items():
+            for symbol, percentage in allocation_category.get_assets().items():
                 parsed_asset = None
                 try:
-                    # Try to get the asset/symbol from the parsed CSV file results.
-                    parsed_asset = [asset for asset in parsed_assets if asset.symbol == symbol][0]
-                except:
-                    # If the asset does not exist in parsed_assets then it's a new addition. Create empty Asset object.
+                    # Try to get the asset/symbol from @parsed_assets
+                    parsed_asset = next(asset for asset in parsed_assets if asset.symbol == symbol)
+                except StopIteration:
                     parsed_asset = Asset.from_symbol(symbol)
-                
+
                 self.__initial_balance += parsed_asset.initial_balance
                 parsed_asset.set_target_percentage(percentage)
                 category_assets.append(parsed_asset)
 
-            self.__categories.append(Category(_id, info['name'], category_assets))
+            self.__categories.append(Category(allocation_category.name, category_assets))
         
         # Get the initial cash balance
         try:
-            self.__cash_balance = [asset.initial_balance for asset in parsed_assets if asset.symbol == self.__CASH and asset.account_id == account_details.id][0]
+            self.__cash_balance = [asset.initial_balance for asset in parsed_assets if asset.symbol in self.__CASH and asset.account_id == account_details.id][0]
         except:
             pass
 

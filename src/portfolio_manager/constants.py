@@ -1,10 +1,6 @@
 from portfolio_manager.objects.account_details import AccountDetails
-
-ACCOUNTS = {
-    '1': AccountDetails('Z04711651', 'Index Fund'),
-    '2': AccountDetails('Z09549221', 'ETF'),
-    '3': AccountDetails('Z09542051', 'Junkyard')
-}
+from portfolio_manager.objects.allocation import Allocation
+from portfolio_manager.objects.allocation_category import AllocationCategory
 
 TASKS = [
     'Invest Cash',
@@ -43,107 +39,74 @@ JUNKYARD_SYMBOLS = [
     'FSPSX'
 ]
 
-ALL_SYMBOLS = INDEX_FUND_SYMBOLS + ETF_SYMBOLS + JUNKYARD_SYMBOLS + ['FCASH']
+ALL_SYMBOLS = INDEX_FUND_SYMBOLS + ETF_SYMBOLS + JUNKYARD_SYMBOLS + ['FCASH', 'USD']
 
-INDEX_FUND_ALLOCATIONS = {
-    'large_cap': {
-        'name': 'Large Cap',
-        'assets': {
-            'FXAIX': 0.35,
-            'FSKAX': 0
-        }
-    },
-    'mid_cap': {
-        'name': 'Mid Cap',
-        'assets': {
-            'FSMAX': 0,
-            'FSMDX': 0.2
-        }
-    },
-    'small_cap': {
-        'name': 'Small Cap',
-        'assets': {
-            'FSSNX': 0.2
-        }
-    },
-    'int_developed': {
-        'name': 'Intl Developed',
-        'assets': {
-            'FSPSX': 0,
-            'FSGGX': 0.1
-        }
-    },
-    'int_emerging': {
-        'name': 'Intl Emerging',
-        'assets': {
-            'FPADX': 0.1
-        }
-    },
-    'domestic_bond': {
-        'name': "Domestic Bond",
-        'assets': {
-            'FXNAX': 0.025,
-            'FUAMX': 0.025
-        }
-    }
-}
+INDEX_FUND_ALLOCATIONS_2 = (Allocation()
+    .with_category(
+        AllocationCategory('Large Cap')
+            .with_asset("FXAIX", 0.35)
+            .with_asset("FSKAX", 0)
+    ).with_category(
+        AllocationCategory('Mid Cap')
+            .with_asset('FSMDX', 0.2)
+            .with_asset('FSMAX', 0)
+    ).with_category(
+        AllocationCategory('Small Cap')
+            .with_asset('FSSNX', 0.2)
+    ).with_category(
+        AllocationCategory('Intl Developed')
+            .with_asset('FSGGX', 0.1)
+            .with_asset('FSPSX', 0)
+    ).with_category(
+        AllocationCategory('Intl Emerging')
+            .with_asset('FPADX', 0.1)
+    ).with_category(
+        AllocationCategory('Domestic Bond')
+            .with_asset('FXNAX', 0.025)
+            .with_asset('FUAMX', 0.025)
+    )
+).verify()
 
-ETF_ALLOCATIONS = {
-    'large_cap': {
-        'name': 'Large Cap',
-        'assets': {
-            'QQQM': 0.25,
-            'VUG': 0.10
-        }
-    },
-    'mid_cap': {
-        'name': 'Mid Cap',
-        'assets': {
-            'VO': 0.2
-        }
-    },
-    'small_cap': {
-        'name': 'Small Cap',
-        'assets': {
-            'VB': 0.2
-        }
-    },
-    'int_developed': {
-        'name': 'Intl Developed',
-        'assets': {
-            'SPEM': 0.1
-        }
-    },
-    'int_emerging': {
-        'name': 'Intl Emerging',
-        'assets': {
-            'IEMG': 0.1
-        }
-    },
-    'domestic_bond': {
-        'name': "Domestic Bond",
-        'assets': {
-            'SPTL': 0.025
-        }
-    },
-    'int_bond': {
-        'name': "International Bond",
-        'assets': {
-            'IAGG': 0.025
-        }
-    }
-}
+ETF_ALLOCATIONS_2 = (Allocation()
+    .with_category(
+        AllocationCategory('Large Cap')
+            .with_asset("QQQM", 0.25)
+            .with_asset("VUG", 0.1)
+    ).with_category(
+        AllocationCategory('Mid Cap')
+            .with_asset('VO', 0.2)
+    ).with_category(
+        AllocationCategory('Small Cap')
+            .with_asset('VB', 0.2)
+    ).with_category(
+        AllocationCategory('Intl Developed')
+            .with_asset('SPEM', 0.1)
+    ).with_category(
+        AllocationCategory('Intl Emerging')
+            .with_asset('IEMG', 0.1)
+    ).with_category(
+        AllocationCategory('Domestic Bond')
+            .with_asset('SPTL', 0.025)
+    ).with_category(
+        AllocationCategory('Intl Bond')
+            .with_asset('IAGG', 0.025)
+    )
+).verify()
 
-JUNKYARD_ALLOCATIONS = {
-    'all': {
-        'name': "All",
-        'assets': {
-            'AMZN': 100,
-            'FSMAX': 0,
-            'FSKAX': 0,
-            'FSPSX': 0,
-        }
-    }
+JUNKYARD_ALLOCATIONS_2 = (Allocation()
+    .with_category(
+        AllocationCategory('All')
+            .with_asset('AMZN', 1)
+            .with_asset('FSMAX', 0)
+            .with_asset('FSKAX', 0)
+            .with_asset('FSPSX', 0)
+    )
+).verify()
+
+ACCOUNTS = {
+    '1': AccountDetails('Z04711651', 'Index Fund', INDEX_FUND_ALLOCATIONS_2),
+    '2': AccountDetails('Z09549221', 'ETF', ETF_ALLOCATIONS_2),
+    '3': AccountDetails('Z09542051', 'Junkyard', JUNKYARD_ALLOCATIONS_2)
 }
 
 def format_cents(cents):

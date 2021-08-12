@@ -4,8 +4,8 @@ from portfolio_manager.objects.account import Account
 class Portfolio():
     accounts = {}
 
-    def __init__(self, parsed_assets):
-        for key, account_details in ACCOUNTS.items():
+    def __init__(self, parsed_assets, account_details_list):
+        for key, account_details in account_details_list.items():
             self.accounts[account_details.id] = Account(parsed_assets, account_details)
 
     def invest_balanced(self, account_details, additional_cash = 0):
