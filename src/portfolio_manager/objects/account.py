@@ -1,12 +1,10 @@
 from portfolio_manager.objects.category import Category
 from portfolio_manager.objects.balanceable import Balanceable
 from portfolio_manager.objects.asset import Asset
-import constants
-from constants import format_cents
+from constants import format_cents, CASH_SYMBOLS, BOLD, END
 import balancer
 
 class Account(Balanceable):
-    __CASH = ['FCASH', 'USD']
 
     def __init__(self, parsed_assets, account_details):
         self.__categories = []
@@ -33,7 +31,7 @@ class Account(Balanceable):
         
         # Get the initial cash balance
         try:
-            self.__cash_balance = [asset.initial_balance for asset in parsed_assets if asset.symbol in self.__CASH and asset.account_id == account_details.id][0]
+            self.__cash_balance = [asset.initial_balance for asset in parsed_assets if asset.symbol in CASH_SYMBOLS and asset.account_id == account_details.id][0]
         except:
             pass
 
@@ -48,6 +46,12 @@ class Account(Balanceable):
 
     def get_deficit_items(self):
         return [category for category in self.__categories if category.is_deficit()]
+
+    def __make_bold(self, strings):
+        new_strings = []
+        for string in strings:
+            new_strings.append(f'{BOLD}{string}{END}')
+        return new_strings
 
     def pretty_print_categories(self):
         titles = ['Names', 'Target %', 'Target $', 'Current %', 'Current $', 'Final %', 'Final $']
@@ -74,15 +78,15 @@ class Account(Balanceable):
         
         header = ''
         for i in range(len(titles)):
-            header += f'| {titles[i]:{column_widths[i]}} '
+            header += f'| {BOLD}{titles[i]:{column_widths[i]}}{END} '
         header += '|'
 
-        table_width = len(header)
+        table_width = len(header) - len(titles) * (len(BOLD) + len(END))
         divider_line = ''
         for i in range(table_width):
             divider_line += '-'
 
-        print('\nCATEGORIES')
+        print(f'\n{BOLD}CATEGORIES{END}')
         print(divider_line)
         print(header)
         print(divider_line)
@@ -125,15 +129,15 @@ class Account(Balanceable):
         # Get header row
         header = ''
         for i in range(len(titles)):
-            header += f'| {titles[i]:{column_widths[i]}} '
+            header += f'| {BOLD}{titles[i]:{column_widths[i]}}{END} '
         header += '|'
 
-        table_width = len(header)
+        table_width = len(header) - len(titles) * (len(BOLD) + len(END))
         divider_line = ''
         for i in range(table_width):
             divider_line += '-'
 
-        print('\nASSETS')
+        print(f'\n{BOLD}ASSETS{END}')
         print(divider_line)
         print(header)
         print(divider_line)

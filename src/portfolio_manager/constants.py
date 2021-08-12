@@ -2,10 +2,18 @@ from portfolio_manager.objects.account_details import AccountDetails
 from portfolio_manager.objects.allocation import Allocation
 from portfolio_manager.objects.allocation_category import AllocationCategory
 
+BOLD = u'\033[1m'
+END = u'\u001b[0m'
+
 TASKS = [
     'Invest Cash',
     'Rebalance',
     'Get Summary'
+]
+
+CASH_SYMBOLS = [
+    'FCASH',
+    'USD'
 ]
 
 INDEX_FUND_SYMBOLS = [
