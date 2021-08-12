@@ -1,8 +1,8 @@
 from portfolio_manager.objects.category import Category
 from portfolio_manager.objects.balanceable import Balanceable
 from portfolio_manager.objects.asset import Asset
-from constants import format_cents, CASH_SYMBOLS, BOLD, END
-import balancer
+from portfolio_managerconstants import format_cents, CASH_SYMBOLS, BOLD, END
+import portfolio_manager.balancer as balancer
 
 class Account(Balanceable):
 
