@@ -209,7 +209,7 @@ def main(argv):
     # Prepare portfolio
     assets = fidelity_csv_parser.parse(csvFile)
     csvFile.close()
-    portfolio = Portfolio(assets, ACCOUNTS)
+    portfolio = Portfolio(assets, list(ACCOUNTS.values()))
     # Do tasks and display results
     for index, account_details in enumerate(account_details_list):
         if tasks[index] == 1:   # Invest cash

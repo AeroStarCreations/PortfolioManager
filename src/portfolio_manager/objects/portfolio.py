@@ -5,11 +5,11 @@ class Portfolio():
     accounts = {}
 
     def __init__(self, parsed_assets, account_details_list):
-        assert parsed_asset is list, 'Portfolio requires @parsed_assets be a list'
-        assert account_details_list is list, 'Portfolio requires @account_details_list be a list'
-        assert every([asset is Asset for asset in parsed_assets]), '@parsed_assets must contain items of type Asset'
+        assert isinstance(parsed_assets, list), 'Portfolio requires @parsed_assets be a list'
+        assert isinstance(account_details_list, list), 'Portfolio requires @account_details_list be a list'
+        assert all([isinstance(asset, Asset) for asset in parsed_assets]), '@parsed_assets must contain items of type Asset'
         
-        for key, account_details in account_details_list.items():
+        for account_details in account_details_list:
             self.accounts[account_details.id] = Account(parsed_assets, account_details)
 
     def invest_balanced(self, account_details, additional_cash = 0):
