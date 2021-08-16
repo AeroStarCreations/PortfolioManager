@@ -16,7 +16,7 @@ class Portfolio():
         return self.accounts[account_details.id].invest_balanced(additional_cash)
 
     def get_assets(self, account_details):
-        self.accounts[account_details.id].get_assets()
+        return self.accounts[account_details.id].get_assets()
 
     def print_categories(self, account_details):
         self.accounts[account_details.id].pretty_print_categories()
