@@ -41,6 +41,12 @@ class Account(Balanceable):
             category.set_target_balance(self.__target_balance)
         return balancer.balanced_invest(self, additional_cash + self.__cash_balance)
 
+    def get_assets(self):
+        assets = []
+        for category in self.__categories:
+            assets += category.assets
+        return assets
+
     def get_initial_balance(self):
         return self.__initial_balance
 
