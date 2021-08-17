@@ -20,7 +20,7 @@ class AllocationCategory():
         return sum(self.assets.values())
 
     def get_list_of_symbols(self):
-        return self.assets.keys()
+        return [*self.assets.keys()]
 
     def contains_symbol(self, symbol):
         return any([symbol == sym for sym in self.assets.keys()])
