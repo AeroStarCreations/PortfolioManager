@@ -78,9 +78,9 @@ def helpOption():
 def getCashAmountFromUser():
     while True:
         try:
-            bob = float(input(f'\nEnter the amount of cash you are investing: {greens[1]}${default}')) * 100
-            print(bob)
-            return bob
+            dollars = float(input(f'\nEnter the amount of cash you are investing: {greens[1]}${default}'))
+            cents = dollars * 100
+            return cents
         except ValueError:
             showCashErrorMessage()
 
@@ -97,7 +97,6 @@ def stripQuotations(val):
 # -------------------------------------------------------------------------
 def getFileFromUser():
     try:
-        # return open('/Users/nathanballi/Downloads/Portfolio_Position_Aug-01-2021.csv')
         dir_path = 'src/text_files'
         db_file_path = os.path.join(dir_path, 'csv_name.txt')
         if not os.path.exists(dir_path):
@@ -189,6 +188,13 @@ def investBalancedBinance(account_balances):
     print('Investing in Binance.US account')
     # account_details_list = [AccountDetails('binance', 'Binance.US')]
     # assets = binance_parser
+    
+def manage_kraken():
+    print("Managing kraken")
+    # Ask user for task (e.g. invest, rebalance)
+    # Get other info (e.g. how much $ to invest)
+    # Prepare portfolio
+    pass
 
 # -------------------------------------------------------------------------
 # The beginning. Does 5 things:
@@ -198,9 +204,7 @@ def investBalancedBinance(account_balances):
 #      4. Asks user if they want to include additional cash
 #      5. Displays output
 # -------------------------------------------------------------------------
-def main(argv):
-    # Welcome message
-    showOpeningMessage()
+def manage_fidelity():
     # Get information from user
     account_details_list = getAccountsOfInterest()
     tasks = getTasksForAccounts(account_details_list)
@@ -228,6 +232,25 @@ def main(argv):
             print(f'\n{purple}{bold}//**************************************************************************\\\\\n')
             print(f'{blues[1]}Account summary for account: {account_details.name} ({account_details.id}){default}')
             print(f'\n{purple}{bold}\\\\**************************************************************************//{default}')
+            
+def main(argv):
+    # Welcome message
+    showOpeningMessage()
+    # Ask what account to use
+    printBlue("Which account would you like to manage?\n")
+    printBlue("1. Fidelity")
+    printBlue("2. Binance")
+    printBlue("3. Kraken")
+    
+    choice = int(input('\n> '))
+    
+    if choice == 1:
+        manage_fidelity()
+    elif choice == 2:
+        # manage binance
+        pass
+    elif choice == 3:
+        manage_kraken()
 
 if __name__ == '__main__':
     main(sys.argv[1:])

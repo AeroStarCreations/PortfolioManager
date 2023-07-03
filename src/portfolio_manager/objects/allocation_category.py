@@ -5,7 +5,7 @@ class AllocationCategory():
         self.assets = {}
 
     def with_asset(self, symbol, percentage):
-        self.add_asset(symbol, percentage)
+        self.add_asset(symbol, percentage / 100.0)
         return self
 
     def add_asset(self, symbol, percentage):
