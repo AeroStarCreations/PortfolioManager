@@ -11,7 +11,7 @@ setuptools.setup(
     author='Nathan Balli',
     author_email='AeroStarCreations1@gmail.com',
     # Needed to actually package something
-    packages=setuptools.find_packages(where='src'),
+    #packages=setuptools.find_packages(where='src'),
     package_dir={'': 'src'},
     # Needed for dependencies
     install_requires=[],
