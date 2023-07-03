@@ -97,7 +97,7 @@ def stripQuotations(val):
 # -------------------------------------------------------------------------
 def getFileFromUser():
     try:
-        dir_path = 'src/text_files'
+        dir_path = 'text_files'
         db_file_path = os.path.join(dir_path, 'csv_name.txt')
         if not os.path.exists(dir_path):
             os.makedirs(dir_path)
