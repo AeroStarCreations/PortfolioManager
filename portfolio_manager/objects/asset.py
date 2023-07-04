@@ -1,4 +1,4 @@
-from portfolio_manager.objects.base_investment import BaseInvestment
+from objects.base_investment import BaseInvestment
 
 class Asset(BaseInvestment):
     account_id = ""

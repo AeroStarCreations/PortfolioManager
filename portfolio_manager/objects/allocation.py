@@ -1,9 +1,11 @@
+from allocation_category import AllocationCategory
+
 class Allocation():
 
     def __init__(self):
         self.categories = []
 
-    def with_category(self, allocation_category):
+    def with_category(self, allocation_category: AllocationCategory):
         self.add_category(allocation_category)
         return self
 
@@ -13,7 +15,7 @@ class Allocation():
         assert proximityTo100 < 0.000000000000001
         return self
 
-    def add_category(self, allocation_category):
+    def add_category(self, allocation_category: AllocationCategory):
         self.categories.append(allocation_category)
 
     def get_categories(self):

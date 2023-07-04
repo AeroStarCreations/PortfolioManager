@@ -1,16 +1,18 @@
-from portfolio_manager.objects.category import Category
-from portfolio_manager.objects.balanceable import Balanceable
-from portfolio_manager.objects.asset import Asset
-from portfolio_manager.constants import format_cents, CASH_SYMBOLS, BOLD, END
-import portfolio_manager.balancer as balancer
+from objects.category import Category
+from objects.balanceable import Balanceable
+from objects.asset import Asset
+from constants import format_cents, CASH_SYMBOLS, BOLD, END
+import balancer as balancer
+from objects.account_details import AccountDetails
 
 class Account(Balanceable):
 
-    def __init__(self, parsed_assets, account_details):
+    def __init__(self, parsed_assets: list[Asset], account_details: AccountDetails):
         self.__categories = []
         self.__initial_balance = 0
         self.__target_balance = 0
         self.__cash_balance = 0
+        self.__account_details = account_details
 
         # Get category info for this account
         for allocation_category in account_details.asset_allocation.get_categories():
@@ -52,6 +54,12 @@ class Account(Balanceable):
 
     def get_deficit_items(self):
         return [category for category in self.__categories if category.is_deficit()]
+
+    def get_name(self):
+        return self.__account_details.name
+    
+    def get_id(self):
+        return self.__account_details.id
 
     def __make_bold(self, strings):
         new_strings = []

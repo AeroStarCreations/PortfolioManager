@@ -3,10 +3,10 @@ import os
 import sys
 import getopt
 import fidelity_csv_parser
-from portfolio_manager.objects.account import Account
-from portfolio_manager.objects.portfolio import Portfolio
+from objects.account import Account
+from objects.portfolio import Portfolio
 from constants import ACCOUNTS, TASKS, format_cents
-from portfolio_manager.objects.account_details import AccountDetails
+from objects.account_details import AccountDetails
 
 # Colors
 blues = [u"\u001b[38;5;32m", u"\u001b[38;5;39m"]
@@ -155,10 +155,27 @@ def getAccountsOfInterest():
 # -------------------------------------------------------------------------
 # Get desired task for each account
 # -------------------------------------------------------------------------
-def getTasksForAccounts(account_details_list):
+def getTasksForAccounts(account_details_list: list[AccountDetails]):
     inputTasks = []
     for account_details in account_details_list:
         printBlue(f'\nWhat would you like to do with your {account_details.name} account? (enter number)\n')
+        for index, task in enumerate(TASKS, start=1):
+            print(f'{index}) {task}')
+        while True:
+            try:
+                inputTasks.append(int(input('\n> ')))
+                break
+            except ValueError:
+                showNonIntErrorMessage()
+    return inputTasks
+
+# -------------------------------------------------------------------------
+# Get desired task for portfolio accounts
+# -------------------------------------------------------------------------
+def getTasksForPortfolioAccounts(portfolio: Portfolio):
+    inputTasks = []
+    for account in portfolio.accounts:
+        printBlue(f'\nWhat would you like to do with your {account.name} account? (enter number)\n')
         for index, task in enumerate(TASKS, start=1):
             print(f'{index}) {task}')
         while True:
@@ -184,17 +201,52 @@ def getAdditionalCash(account_details_list):
             additionalCash.append(0)
     return additionalCash
 
+# -------------------------------------------------------------------------
+# Ask the user if they want to consider additional cash besides what is
+# already in the Portfolio accounts.
+# -------------------------------------------------------------------------
+def getAdditionalCash(portfolio: Portfolio):
+    additionalCash = []
+    for account in portfolio.accounts:
+        printBlue(f'\nWould you like to consider additional cash for your {account.name} account? (y/n)\n')
+        answer = input('> ').lower()
+        if answer == 'y':
+            additionalCash.append(getCashAmountFromUser())
+        else:
+            additionalCash.append(0)
+    return additionalCash
+
 def investBalancedBinance(account_balances):
     print('Investing in Binance.US account')
     # account_details_list = [AccountDetails('binance', 'Binance.US')]
     # assets = binance_parser
     
-def manage_kraken():
+def manage_kraken(portfolio: Portfolio):
     print("Managing kraken")
     # Ask user for task (e.g. invest, rebalance)
+    tasks = getTasksForPortfolioAccounts(portfolio)
     # Get other info (e.g. how much $ to invest)
-    # Prepare portfolio
-    pass
+    additionalCash = getAdditionalCash(portfolio)
+    # Do actual stuff
+    print(f'Portfolio:\n{portfolio}')
+    for index, account in enumerate(portfolio.accounts):
+        id = account.get_id()
+        if tasks[index] == 1:   # Invest cash
+            print(f'\n{greens[0]}{bold}//**************************************************************************\\\\\n')
+            print(f'{blues[1]}Investment summary for account: {account.get_name()} ({id}){default}')
+            amount_invested = portfolio.invest_balanced(id, additionalCash[index])
+            portfolio.print_categories(id)
+            portfolio.print_assets(id)
+            print(f'\nInvestment total: {format_cents(amount_invested)}')
+            print(f'\n{greens[0]}{bold}\\\\**************************************************************************//{default}')
+        elif tasks[index] == 2: # Rebalance
+            print(f'\n{orange}{bold}//**************************************************************************\\\\\n')
+            print(f'{blues[1]}Rebalance summary for account: {account.get_name()} ({id}){default}')
+            print(f'\n{orange}{bold}\\\\**************************************************************************//{default}')
+        elif tasks[index] == 3: # Get summary
+            print(f'\n{purple}{bold}//**************************************************************************\\\\\n')
+            print(f'{blues[1]}Account summary for account: {account.get_name()} ({id}){default}')
+            print(f'\n{purple}{bold}\\\\**************************************************************************//{default}')
 
 # -------------------------------------------------------------------------
 # The beginning. Does 5 things:
@@ -205,6 +257,8 @@ def manage_kraken():
 #      5. Displays output
 # -------------------------------------------------------------------------
 def manage_fidelity():
+    # Welcome message
+    showOpeningMessage()
     # Get information from user
     account_details_list = getAccountsOfInterest()
     tasks = getTasksForAccounts(account_details_list)
@@ -233,24 +287,8 @@ def manage_fidelity():
             print(f'{blues[1]}Account summary for account: {account_details.name} ({account_details.id}){default}')
             print(f'\n{purple}{bold}\\\\**************************************************************************//{default}')
             
-def main(argv):
-    # Welcome message
-    showOpeningMessage()
-    # Ask what account to use
-    printBlue("Which account would you like to manage?\n")
-    printBlue("1. Fidelity")
-    printBlue("2. Binance")
-    printBlue("3. Kraken")
-    
-    choice = int(input('\n> '))
-    
-    if choice == 1:
-        manage_fidelity()
-    elif choice == 2:
-        # manage binance
-        pass
-    elif choice == 3:
-        manage_kraken()
+def main(argv=None):
+    manage_fidelity()
 
 if __name__ == '__main__':
     main(sys.argv[1:])

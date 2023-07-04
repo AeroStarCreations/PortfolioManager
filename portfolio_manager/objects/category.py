@@ -1,6 +1,6 @@
-from portfolio_manager.objects.base_investment import BaseInvestment
-from portfolio_manager.objects.balanceable import Balanceable
-import portfolio_manager.balancer as balancer
+from objects.base_investment import BaseInvestment
+from objects.balanceable import Balanceable
+import balancer as balancer
 
 class Category(BaseInvestment, Balanceable):
 
