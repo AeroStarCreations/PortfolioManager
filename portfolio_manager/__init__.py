@@ -5,7 +5,7 @@ from objects.asset import Asset
 from objects.portfolio import Portfolio
 
 def bob():
-    print('Hello, World!')
+    print('Hello, World!!')
     
 def start():
     from main import main
