@@ -6,7 +6,7 @@ with open('README.md') as rm:
 setuptools.setup(
     # Needed to silence warnings (and to be a worthwhile package)
     name='portfolio-manager-nb',
-    packages=['portfolio_manager'],
+    packages=setuptools.find_packages(),#['portfolio_manager'],
     url='https://github.com/AeroStarCreations/PortfolioManager',
     author='Nathan Balli',
     author_email='AeroStarCreations1@gmail.com',
