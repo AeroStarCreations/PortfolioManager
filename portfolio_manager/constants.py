@@ -13,7 +13,8 @@ TASKS = [
 
 CASH_SYMBOLS = [
     'FCASH',
-    'USD'
+    'USD',
+    'ZUSD'
 ]
 
 INDEX_FUND_SYMBOLS = [

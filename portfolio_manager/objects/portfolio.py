@@ -17,7 +17,7 @@ class Portfolio():
         assert all([isinstance(asset, Asset) for asset in parsed_assets]), '@parsed_assets must contain items of type Asset'
         assert all([isinstance(ad, AccountDetails) for ad in account_details_list]), '@account_details_list must contain items of type AccountDetails'
         
-        self.accounts: dict[Account] = {}
+        self.accounts: dict[str, Account] = {}
         for account_details in account_details_list:
             self.accounts[account_details.id] = Account(parsed_assets, account_details)
 
