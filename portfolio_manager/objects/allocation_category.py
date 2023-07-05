@@ -4,13 +4,12 @@ class AllocationCategory():
         self.name = name
         self.assets = {}
 
-    def with_asset(self, symbol, percentage):
-        self.add_asset(symbol, percentage / 100.0)
+    def with_asset(self, symbol: str, percentage: int):
+        self.add_asset(symbol, percentage)
         return self
 
-    def add_asset(self, symbol, percentage):
-        assert percentage >= 0.0, 'Asset allocation is less than 0.0'
-        assert percentage <= 1.0, 'Asset allocation is more than 1.0'
+    def add_asset(self, symbol: str, percentage: int):
+        assert percentage >= 0 and percentage <= 100, f'Percentage for \'{symbol}\' must be in range [0, 100]. Was {percentage}'
         self.assets[symbol] = percentage
 
     def get_assets(self):

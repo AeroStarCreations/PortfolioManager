@@ -11,8 +11,9 @@ class Allocation():
 
     def verify(self):
         # print(f'sum = ${sum([category.get_total_percentage() for category in self.categories])}')
-        proximityTo100 = abs(sum([category.get_total_percentage() for category in self.categories]) - 1.0)
-        assert proximityTo100 < 0.000000000000001
+        # proximityTo100 = abs(sum([category.get_total_percentage() for category in self.categories]) - 1.0)
+        # assert proximityTo100 < 0.000000000000001
+        assert 100 == sum([category.get_total_percentage() for category in self.categories])
         return self
 
     def add_category(self, allocation_category: AllocationCategory):
