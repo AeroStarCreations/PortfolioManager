@@ -1,4 +1,4 @@
-from allocation import Allocation
+from .allocation import Allocation
 
 class AccountDetails():
     def __init__(self, id, name, asset_allocation: Allocation):

@@ -1,4 +1,4 @@
-from allocation_category import AllocationCategory
+from .allocation_category import AllocationCategory
 
 class Allocation():
 
