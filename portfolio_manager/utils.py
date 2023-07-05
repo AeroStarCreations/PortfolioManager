@@ -13,4 +13,4 @@ def format_dollars(dollars: float) -> str:
         if dollars < 0:
             return f'({result})'
     except TypeError:
-        return str(dollars)
+        return str(dollars) | 'oops'

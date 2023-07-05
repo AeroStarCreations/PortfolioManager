@@ -1,9 +1,9 @@
-from ..utils import format_cents, format_dollars
+from utils import format_cents, format_dollars
 from .category import Category
 from .balanceable import Balanceable
 from .asset import Asset
-from ..constants import CASH_SYMBOLS, BOLD, END
-from .. import balancer
+from constants import CASH_SYMBOLS, BOLD, END
+import balancer
 from .account_details import AccountDetails
 
 class Account(Balanceable):

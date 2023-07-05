@@ -1,6 +1,6 @@
-from .objects.account_details import AccountDetails
-from .objects.allocation import Allocation
-from .objects.allocation_category import AllocationCategory
+from objects.account_details import AccountDetails
+from objects.allocation import Allocation
+from objects.allocation_category import AllocationCategory
 
 BOLD = u'\033[1m'
 END = u'\u001b[0m'

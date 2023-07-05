@@ -1,4 +1,4 @@
-from .objects.asset import Asset
+from objects.asset import Asset
 from constants import ALL_SYMBOLS
 
 unwanted_characters = '\"*$%+\n'

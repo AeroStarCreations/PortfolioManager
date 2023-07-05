@@ -1,7 +1,7 @@
-from ..utils import format_dollars
+from utils import format_dollars
 from .base_investment import BaseInvestment
 from .balanceable import Balanceable
-from .. import balancer
+import balancer
 
 class Category(BaseInvestment, Balanceable):
 

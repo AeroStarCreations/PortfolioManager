@@ -1,4 +1,4 @@
-from ..utils import format_dollars
+from utils import format_dollars
 from .base_investment import BaseInvestment
 
 class Asset(BaseInvestment):
