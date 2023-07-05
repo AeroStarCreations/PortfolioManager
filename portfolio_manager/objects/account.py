@@ -77,14 +77,14 @@ class Account(Balanceable):
         # Get the data
         for c in self.__categories:
             columns[0].append(c.name)
-            columns[1].append(f'{c.target_percentage*100:.1f}%')
+            columns[1].append(f'{c.target_percentage:.1f}%')
             columns[2].append(format_cents(c.target_balance))
             try:
-                columns[3].append(f'{c.initial_balance/self.__initial_balance*100:.1f}%')
+                columns[3].append(f'{c.initial_balance/self.__initial_balance:.1f}%')
             except ZeroDivisionError:
                 columns[3].append('n/a')
             columns[4].append(format_cents(c.initial_balance))
-            columns[5].append(f'{c.get_total_balance()/self.__target_balance*100:.1f}%')
+            columns[5].append(f'{c.get_total_balance()/self.__target_balance:.1f}%')
             columns[6].append(format_cents(c.get_total_balance()))
 
         # Get column widths
@@ -127,14 +127,17 @@ class Account(Balanceable):
             for a in c.assets:
                 columns[0].append(a.symbol)
                 columns[1].append(format_cents(a.amount_invested))
-                columns[2].append(f'{a.target_percentage*100:.1f}%')
+                columns[2].append(f'{a.target_percentage:.1f}%')
                 columns[3].append(format_cents(a.target_balance))
                 try:
-                    columns[4].append(f'{a.initial_balance/self.__initial_balance*100:.1f}%')
+                    columns[4].append(f'{a.initial_balance/self.__initial_balance:.1f}%')
                 except ZeroDivisionError:
                     columns[4].append('n/a')
                 columns[5].append(format_cents(a.initial_balance))
-                columns[6].append(f'{a.get_total_balance()/self.__target_balance*100:.1f}%')
+                try:
+                    columns[6].append(f'{a.get_total_balance()/self.__target_balance:.1f}%')
+                except ZeroDivisionError:
+                    columns[6].append('0%')
                 columns[7].append(format_cents(a.get_total_balance()))
 
         # Get column widths

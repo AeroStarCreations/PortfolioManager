@@ -5,6 +5,13 @@ from .asset import Asset
 class Portfolio():
 
     def __init__(self, parsed_assets: list[Asset], account_details_list: list[AccountDetails]):
+        """
+        Portfolio constructor
+
+        Args:
+            parsed_assets (list[Asset]): List of Assets that represent current account holdings.
+            account_details_list (list[AccountDetails]): List of AccountDetails that represent desired account holdings.
+        """
         assert isinstance(parsed_assets, list), 'Portfolio requires @parsed_assets be a list'
         assert isinstance(account_details_list, list), 'Portfolio requires @account_details_list be a list'
         assert all([isinstance(asset, Asset) for asset in parsed_assets]), '@parsed_assets must contain items of type Asset'
