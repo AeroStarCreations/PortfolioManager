@@ -2,7 +2,7 @@
 # from .objects.allocation_category import AllocationCategory
 # from .objects.allocation import Allocation
 # from .objects.asset import Asset
-from objects import Portfolio
+from .objects import Portfolio
 
 def bob():
     print('Hello, World!!')
