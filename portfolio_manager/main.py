@@ -2,7 +2,7 @@ import re
 import os
 import sys
 import fidelity_csv_parser
-from .utils import format_cents
+from .utils import format_cents, format_dollars
 from .objects.account import Account
 from .objects.portfolio import Portfolio
 from constants import ACCOUNTS, TASKS
@@ -79,8 +79,8 @@ def getCashAmountFromUser():
     while True:
         try:
             dollars = float(input(f'\nEnter the amount of cash you are investing: {greens[1]}${default}'))
-            cents = dollars * 100
-            return cents
+            # cents = dollars * 100
+            return dollars #cents
         except ValueError:
             showCashErrorMessage()
 
@@ -237,7 +237,8 @@ def manage_kraken(portfolio: Portfolio):
             amount_invested = portfolio.invest_balanced(id, additionalCash[index])
             portfolio.print_categories(id)
             portfolio.print_assets(id)
-            print(f'\nInvestment total: {format_cents(amount_invested)}')
+            # print(f'\nInvestment total: {format_cents(amount_invested)}')
+            print(f'\nInvestment total: {format_dollars(amount_invested)}')
             print(f'\n{greens[0]}{bold}\\\\**************************************************************************//{default}')
         elif tasks[index] == 2: # Rebalance
             print(f'\n{orange}{bold}//**************************************************************************\\\\\n')
@@ -276,7 +277,8 @@ def manage_fidelity():
             amount_invested = portfolio.invest_balanced(account_details, additionalCash[index])
             portfolio.print_categories(account_details)
             portfolio.print_assets(account_details)
-            print(f'\nInvestment total: {format_cents(amount_invested)}')
+            # print(f'\nInvestment total: {format_cents(amount_invested)}')
+            print(f'\nInvestment total: {format_dollars(amount_invested)}')
             print(f'\n{greens[0]}{bold}\\\\**************************************************************************//{default}')
         elif tasks[index] == 2: # Rebalance
             print(f'\n{orange}{bold}//**************************************************************************\\\\\n')

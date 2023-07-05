@@ -1,6 +1,10 @@
+from ..utils import format_dollars
 from .base_investment import BaseInvestment
 
 class Asset(BaseInvestment):
+    """
+    Provide currency values as DOLLARS
+    """
     account_id = ""
     symbol = ""
     description = ""
@@ -50,4 +54,5 @@ class Asset(BaseInvestment):
         return result
 
     def __str__(self):
-        return f'{self.symbol:6}: Initial: {self.__cents_to_dollar_str(self.initial_balance)}\tInvest: {self.__cents_to_dollar_str(self.amount_invested)}\tFinal: {self.__cents_to_dollar_str(self.initial_balance + self.amount_invested)})'
+        # return f'{self.symbol:6}: Initial: {self.__cents_to_dollar_str(self.initial_balance)}\tInvest: {self.__cents_to_dollar_str(self.amount_invested)}\tFinal: {self.__cents_to_dollar_str(self.initial_balance + self.amount_invested)})'
+        return f'{self.symbol:6}: Initial: {format_dollars(self.initial_balance)}\tInvest: {format_dollars(self.amount_invested)}\tFinal: {format_dollars(self.initial_balance + self.amount_invested)})'

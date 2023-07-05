@@ -1,4 +1,4 @@
-from ..utils import format_cents
+from ..utils import format_cents, format_dollars
 from .category import Category
 from .balanceable import Balanceable
 from .asset import Asset
@@ -24,6 +24,7 @@ class Account(Balanceable):
                     # Try to get the asset/symbol from @parsed_assets
                     parsed_asset = next(asset for asset in parsed_assets if asset.symbol == symbol)
                 except StopIteration:
+                    print(f'ERROR: Could not find {symbol} in parsed assets. Will create blank Asset.')
                     parsed_asset = Asset.from_symbol(symbol)
 
                 self.__initial_balance += parsed_asset.initial_balance
@@ -78,14 +79,17 @@ class Account(Balanceable):
         for c in self.__categories:
             columns[0].append(c.name)
             columns[1].append(f'{c.target_percentage:.1f}%')
-            columns[2].append(format_cents(c.target_balance))
+            # columns[2].append(format_cents(c.target_balance))
+            columns[2].append(format_dollars(c.target_balance))
             try:
                 columns[3].append(f'{c.initial_balance/self.__initial_balance:.1f}%')
             except ZeroDivisionError:
                 columns[3].append('n/a')
-            columns[4].append(format_cents(c.initial_balance))
+            # columns[4].append(format_cents(c.initial_balance))
+            columns[4].append(format_dollars(c.initial_balance))
             columns[5].append(f'{c.get_total_balance()/self.__target_balance:.1f}%')
-            columns[6].append(format_cents(c.get_total_balance()))
+            # columns[6].append(format_cents(c.get_total_balance()))
+            columns[6].append(format_dollars(c.get_total_balance()))
 
         # Get column widths
         for i in range(len(titles)):
@@ -126,19 +130,23 @@ class Account(Balanceable):
         for c in self.__categories:
             for a in c.assets:
                 columns[0].append(a.symbol)
-                columns[1].append(format_cents(a.amount_invested))
+                # columns[1].append(format_cents(a.amount_invested))
+                columns[1].append(format_dollars(a.amount_invested))
                 columns[2].append(f'{a.target_percentage:.1f}%')
-                columns[3].append(format_cents(a.target_balance))
+                # columns[3].append(format_cents(a.target_balance))
+                columns[3].append(format_dollars(a.target_balance))
                 try:
                     columns[4].append(f'{a.initial_balance/self.__initial_balance:.1f}%')
                 except ZeroDivisionError:
                     columns[4].append('n/a')
-                columns[5].append(format_cents(a.initial_balance))
+                # columns[5].append(format_cents(a.initial_balance))
+                columns[5].append(format_dollars(a.initial_balance))
                 try:
                     columns[6].append(f'{a.get_total_balance()/self.__target_balance:.1f}%')
                 except ZeroDivisionError:
                     columns[6].append('0%')
-                columns[7].append(format_cents(a.get_total_balance()))
+                # columns[7].append(format_cents(a.get_total_balance()))
+                columns[7].append(format_dollars(a.get_total_balance()))
 
         # Get column widths
         for i in range(len(titles)):
@@ -174,7 +182,8 @@ class Account(Balanceable):
         return max([len(x) for x in str_list + [title]])
 
     def __str__(self):
-        return f'Portfolio | {format_cents(self.__initial_balance)}'
+        # return f'Portfolio | {format_cents(self.__initial_balance)}'
+        return f'Portfolio | {format_dollars(self.__initial_balance)}'
 
     def __repr__(self):
         return str(self)

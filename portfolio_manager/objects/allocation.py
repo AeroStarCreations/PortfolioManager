@@ -3,7 +3,7 @@ from .allocation_category import AllocationCategory
 class Allocation():
 
     def __init__(self):
-        self.categories = []
+        self.categories: list[AllocationCategory] = []
 
     def with_category(self, allocation_category: AllocationCategory):
         self.add_category(allocation_category)
