@@ -12,8 +12,9 @@ class Account(Balanceable):
         self.__categories: list[Category] = []
         self.__initial_balance = 0
         self.__target_balance = 0
-        self.__cash_balance = 0
+        # self.__cash_balance = 0
         self.__account_details = account_details
+        self.__cash_asset = None
 
         # Get category info for this account
         for allocation_category in account_details.asset_allocation.get_categories():
@@ -31,19 +32,25 @@ class Account(Balanceable):
                 parsed_asset.set_target_percentage(percentage)
                 category_assets.append(parsed_asset)
 
+                # Snag the cash asset
+                if symbol in CASH_SYMBOLS:
+                    self.__cash_asset = parsed_asset
+
             self.__categories.append(Category(allocation_category.name, category_assets))
         
         # Get the initial cash balance
-        try:
-            self.__cash_balance = [asset.initial_balance for asset in parsed_assets if asset.symbol in CASH_SYMBOLS and asset.account_id == account_details.id][0]
-        except:
-            pass
+        # try:
+        #     self.__cash_balance = [asset.initial_balance for asset in parsed_assets if asset.symbol in CASH_SYMBOLS and asset.account_id == account_details.id][0]
+        # except:
+        #     pass
 
     def invest_balanced(self, additional_cash = 0):
-        self.__target_balance = self.__initial_balance + self.__cash_balance + additional_cash
+        self.__target_balance = self.__initial_balance + additional_cash
         for category in self.__categories:
             category.set_target_balance(self.__target_balance)
-        return balancer.balanced_invest(self, additional_cash + self.__cash_balance)
+        amount_invested = balancer.balanced_invest(self, additional_cash + self.__cash_asset.initial_balance)
+        self.__cash_asset.invest(-amount_invested)
+        return amount_invested
 
     def get_assets(self):
         assets = []
@@ -54,7 +61,7 @@ class Account(Balanceable):
     def get_initial_balance(self):
         return self.__initial_balance
 
-    def get_deficit_items(self):
+    def get_deficit_items(self) -> list[Category]:
         return [category for category in self.__categories if category.is_deficit()]
 
     def get_name(self):
