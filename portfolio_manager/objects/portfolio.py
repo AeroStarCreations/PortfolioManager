@@ -1,6 +1,6 @@
-from objects.account import Account
-from objects.account_details import AccountDetails
-from objects.asset import Asset
+from .account import Account
+from .account_details import AccountDetails
+from .asset import Asset
 
 class Portfolio():
 

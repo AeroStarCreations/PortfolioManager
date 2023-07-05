@@ -190,7 +190,7 @@ def getTasksForPortfolioAccounts(portfolio: Portfolio):
 # Ask the user if they want to consider additional cash besides what is
 # already in the account.
 # -------------------------------------------------------------------------
-def getAdditionalCash(account_details_list):
+def getAdditionalCash(account_details_list: list[AccountDetails]):
     additionalCash = []
     for account_details in account_details_list:
         printBlue(f'\nWould you like to consider additional cash for your {account_details.name} account? (y/n)\n')
@@ -205,7 +205,7 @@ def getAdditionalCash(account_details_list):
 # Ask the user if they want to consider additional cash besides what is
 # already in the Portfolio accounts.
 # -------------------------------------------------------------------------
-def getAdditionalCash(portfolio: Portfolio):
+def getAdditionalCash2(portfolio: Portfolio):
     additionalCash = []
     for account in portfolio.accounts:
         printBlue(f'\nWould you like to consider additional cash for your {account.name} account? (y/n)\n')

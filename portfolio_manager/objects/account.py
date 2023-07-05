@@ -1,9 +1,9 @@
-from objects.category import Category
-from objects.balanceable import Balanceable
-from objects.asset import Asset
+from .category import Category
+from .balanceable import Balanceable
+from .asset import Asset
 from constants import format_cents, CASH_SYMBOLS, BOLD, END
 import balancer as balancer
-from objects.account_details import AccountDetails
+from .account_details import AccountDetails
 
 class Account(Balanceable):
 

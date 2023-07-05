@@ -1,4 +1,4 @@
-from objects.base_investment import BaseInvestment
+from .base_investment import BaseInvestment
 
 class Asset(BaseInvestment):
     account_id = ""
