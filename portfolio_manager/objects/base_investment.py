@@ -10,7 +10,7 @@ class BaseInvestment:
         return self.initial_balance + self.amount_invested < self.target_balance
 
     def set_target_balance(self, portfolio_target_balance):
-        self.target_balance = self.target_percentage * portfolio_target_balance
+        self.target_balance = self.target_percentage / 100 * portfolio_target_balance
 
     def get_total_balance(self):
         return self.initial_balance + self.amount_invested

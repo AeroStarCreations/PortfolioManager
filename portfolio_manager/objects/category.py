@@ -1,3 +1,4 @@
+from .asset import Asset
 from ..utils import format_dollars
 from .base_investment import BaseInvestment
 from .balanceable import Balanceable
@@ -5,7 +6,7 @@ from .. import balancer
 
 class Category(BaseInvestment, Balanceable):
 
-    def __init__(self, name, assets):
+    def __init__(self, name, assets: list[Asset]):
         super().__init__()
         self.name = name
         self.assets = assets

@@ -9,7 +9,7 @@ from .account_details import AccountDetails
 class Account(Balanceable):
 
     def __init__(self, parsed_assets: list[Asset], account_details: AccountDetails):
-        self.__categories = []
+        self.__categories: list[Category] = []
         self.__initial_balance = 0
         self.__target_balance = 0
         self.__cash_balance = 0
@@ -82,12 +82,15 @@ class Account(Balanceable):
             # columns[2].append(format_cents(c.target_balance))
             columns[2].append(format_dollars(c.target_balance))
             try:
-                columns[3].append(f'{c.initial_balance/self.__initial_balance:.1f}%')
+                columns[3].append(f'{100*(c.initial_balance/self.__initial_balance):.1f}%')
             except ZeroDivisionError:
                 columns[3].append('n/a')
             # columns[4].append(format_cents(c.initial_balance))
             columns[4].append(format_dollars(c.initial_balance))
-            columns[5].append(f'{c.get_total_balance()/self.__target_balance:.1f}%')
+            try:
+                columns[5].append(f'{100*(c.get_total_balance()/self.__target_balance):.1f}%')
+            except ZeroDivisionError:
+                columns[5].append('0%')
             # columns[6].append(format_cents(c.get_total_balance()))
             columns[6].append(format_dollars(c.get_total_balance()))
 
@@ -136,13 +139,13 @@ class Account(Balanceable):
                 # columns[3].append(format_cents(a.target_balance))
                 columns[3].append(format_dollars(a.target_balance))
                 try:
-                    columns[4].append(f'{a.initial_balance/self.__initial_balance:.1f}%')
+                    columns[4].append(f'{100*(a.initial_balance/self.__initial_balance):.1f}%')
                 except ZeroDivisionError:
                     columns[4].append('n/a')
                 # columns[5].append(format_cents(a.initial_balance))
                 columns[5].append(format_dollars(a.initial_balance))
                 try:
-                    columns[6].append(f'{a.get_total_balance()/self.__target_balance:.1f}%')
+                    columns[6].append(f'{100*(a.get_total_balance()/self.__target_balance):.1f}%')
                 except ZeroDivisionError:
                     columns[6].append('0%')
                 # columns[7].append(format_cents(a.get_total_balance()))
