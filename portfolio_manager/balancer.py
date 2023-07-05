@@ -1,4 +1,4 @@
-from objects.balanceable import Balanceable
+from .objects.balanceable import Balanceable
 
 # Invest in @items so that each item's percent_fill equals @target_percent_fill
 # Required: Categories' percent filled should be roughly equal

@@ -3,10 +3,10 @@ import os
 import sys
 import getopt
 import fidelity_csv_parser
-from objects.account import Account
-from objects.portfolio import Portfolio
+from .objects.account import Account
+from .objects.portfolio import Portfolio
 from constants import ACCOUNTS, TASKS, format_cents
-from objects.account_details import AccountDetails
+from .objects.account_details import AccountDetails
 
 # Colors
 blues = [u"\u001b[38;5;32m", u"\u001b[38;5;39m"]
