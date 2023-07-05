@@ -2,8 +2,8 @@ from ..utils import format_cents
 from .category import Category
 from .balanceable import Balanceable
 from .asset import Asset
-from constants import CASH_SYMBOLS, BOLD, END
-import balancer as balancer
+from ..constants import CASH_SYMBOLS, BOLD, END
+from .. import balancer
 from .account_details import AccountDetails
 
 class Account(Balanceable):
