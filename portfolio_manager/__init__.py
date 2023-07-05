@@ -1,8 +1,8 @@
-from objects.account_details import AccountDetails
-from objects.allocation_category import AllocationCategory
-from objects.allocation import Allocation
-from objects.asset import Asset
-from objects.portfolio import Portfolio
+from .objects.account_details import AccountDetails
+from .objects.allocation_category import AllocationCategory
+from .objects.allocation import Allocation
+from .objects.asset import Asset
+from .objects.portfolio import Portfolio
 
 def bob():
     print('Hello, World!!')
