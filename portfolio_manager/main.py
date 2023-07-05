@@ -1,11 +1,11 @@
 import re
 import os
 import sys
-import getopt
 import fidelity_csv_parser
+from .utils import format_cents
 from .objects.account import Account
 from .objects.portfolio import Portfolio
-from constants import ACCOUNTS, TASKS, format_cents
+from constants import ACCOUNTS, TASKS
 from .objects.account_details import AccountDetails
 
 # Colors
