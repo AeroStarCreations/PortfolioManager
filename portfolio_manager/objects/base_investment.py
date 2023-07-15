@@ -1,10 +1,10 @@
 class BaseInvestment:
     def __init__(self):
         self.amount_invested = 0
-        self.initial_balance = 0
+        self.initial_balance = 0.0
         self.target_balance = 0
         self.target_percentage = 0
-        self.initial_percentage = 0
+        self.initial_percentage = 0.0
 
     def is_deficit(self):
         return self.initial_balance + self.amount_invested < self.target_balance

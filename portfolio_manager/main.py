@@ -269,6 +269,8 @@ def manage_fidelity():
     assets = fidelity_csv_parser.parse(csvFile)
     csvFile.close()
     portfolio = Portfolio(assets, list(ACCOUNTS.values()))
+    account_id = list(ACCOUNTS.values())[0].id
+    portfolio.print_assets_summary(account_id)
     # Do tasks and display results
     for index, account_details in enumerate(account_details_list):
         if tasks[index] == 1:   # Invest cash

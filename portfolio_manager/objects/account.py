@@ -1,3 +1,4 @@
+from itertools import chain
 from ..utils import format_cents, format_dollars
 from .category import Category
 from .balanceable import Balanceable
@@ -38,6 +39,11 @@ class Account(Balanceable):
 
             self.__categories.append(Category(allocation_category.name, category_assets))
         
+        # Set initial allocation for each asset
+        for c in self.__categories:
+            for a in c.assets:
+                a.initial_percentage = a.initial_balance / self.__initial_balance
+
         # Get the initial cash balance
         # try:
         #     self.__cash_balance = [asset.initial_balance for asset in parsed_assets if asset.symbol in CASH_SYMBOLS and asset.account_id == account_details.id][0]
@@ -52,11 +58,8 @@ class Account(Balanceable):
         self.__cash_asset.invest(-amount_invested)
         return amount_invested
 
-    def get_assets(self):
-        assets = []
-        for category in self.__categories:
-            assets += category.assets
-        return assets
+    def get_assets(self) -> list[Asset]:
+        return list(chain.from_iterable([category.assets for category in self.__categories]))
 
     def get_initial_balance(self):
         return self.__initial_balance
@@ -188,7 +191,53 @@ class Account(Balanceable):
 
         print(divider_line)
 
-    def __longest_member(self, title, str_list):
+    def pretty_print_assets_summary(self):
+        titles = ['Symbol', 'Quantity', 'Value ($)', 'Slice (%)']
+        num_columns = len(titles)
+        columns = [[] for t in titles]
+        column_widths = []
+        total_value = 0.0
+
+        # Get the data
+        for c in self.__categories:
+            for a in c.assets:
+                total_value += a.initial_balance
+                columns[0].append(a.symbol)
+                columns[1].append(str(a.quantity).rstrip('0'))
+                columns[2].append(f'{a.initial_balance:,.4f}')
+                columns[3].append(f'{a.initial_percentage*100:.2f}')
+
+        # Get column widths
+        for i in range(len(titles)):
+            column_widths.append(self.__longest_member(titles[i], columns[i]))
+
+        # Get header row
+        header = ''
+        for i in range(len(titles)):
+            header += f'| {BOLD}{titles[i]:^{column_widths[i]}}{END} '
+        header += '|'
+
+        table_width = len(header) - len(titles) * (len(BOLD) + len(END))
+        divider_line = ''
+        for i in range(table_width):
+            divider_line += '-'
+
+        print(f'\n{BOLD}Portfolio Value: ${total_value:,.2f}{END}\n')
+        print(divider_line)
+        print(header)
+        print(divider_line)
+
+        # Print each data row
+        num_rows = len(columns[0])
+        for i in range(num_rows):
+            line = ''
+            for j in range(num_columns):
+                line += f'| {columns[j][i]:>{column_widths[j]}} '
+            print(line + '|')
+
+        print(divider_line)
+
+    def __longest_member(self, title: str, str_list: list[str]):
         return max([len(x) for x in str_list + [title]])
 
     def __str__(self):

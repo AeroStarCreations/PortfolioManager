@@ -8,8 +8,8 @@ class Asset(BaseInvestment):
     account_id = ""
     symbol = ""
     description = ""
-    quantity = 0
-    last_price = 0
+    quantity = 0.0
+    last_price = 0.0
     last_price_change = 0
     todays_gain_cent = 0
     todays_gain_percent = 0

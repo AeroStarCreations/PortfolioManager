@@ -32,3 +32,6 @@ class Portfolio():
 
     def print_assets(self, account_id):
         self.accounts[account_id].pretty_print_assets()
+
+    def print_assets_summary(self, account_id):
+        self.accounts[account_id].pretty_print_assets_summary()
