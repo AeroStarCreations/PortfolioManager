@@ -35,3 +35,6 @@ class Portfolio():
 
     def print_assets_summary(self, account_id):
         self.accounts[account_id].pretty_print_assets_summary()
+
+    def get_cash_balance(self, account_id) -> float:
+        return self.accounts[account_id].get_cash_balance()

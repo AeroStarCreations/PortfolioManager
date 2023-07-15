@@ -73,6 +73,9 @@ class Account(Balanceable):
     def get_id(self):
         return self.__account_details.id
 
+    def get_cash_balance(self):
+        return self.__cash_asset.initial_balance
+    
     def __make_bold(self, strings):
         new_strings = []
         for string in strings:

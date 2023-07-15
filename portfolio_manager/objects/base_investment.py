@@ -1,8 +1,8 @@
 class BaseInvestment:
     def __init__(self):
-        self.amount_invested = 0
+        self.amount_invested = 0.0
         self.initial_balance = 0.0
-        self.target_balance = 0
+        self.target_balance = 0.0
         self.target_percentage = 0
         self.initial_percentage = 0.0
 
